@@ -1,4 +1,4 @@
-# Electricitybillingfrontend
+# Electricity billing frontend
 
 I made this project for this https://github.com/Konn25/ElectricityBillingSystem project.
  
