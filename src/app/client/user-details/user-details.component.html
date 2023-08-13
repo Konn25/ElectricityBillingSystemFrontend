@@ -1,0 +1,37 @@
+<h1>Your details</h1>
+<br>
+<table>
+    <tbody>
+      <tr>
+        <td>Name: </td>
+        <td>{{ getClientName() }}</td>
+      <tr>
+        <td>Postal code</td>
+        <td>{{getClientPostalCode()}}</td>
+      </tr>
+      <tr>
+        <td>City</td>
+        <td>{{getClientCity()}}</td>
+      </tr>
+      <tr>
+        <td>Street</td>
+        <td>{{getClientStreet()}}</td>
+      </tr>
+      <tr>
+        <td>House number</td>
+        <td>{{getClientHouseNumber()}}</td>
+      </tr>
+      <tr>
+        <td>Meter Id</td>
+        <td>{{getClientElectricityMeter()}}</td>
+      </tr>
+      <tr>
+        <td>Email address  </td>
+        <td>{{getClientEmail()}}</td>
+      </tr>
+    </tbody>
+</table>
+
+<br>
+
+<qrcode [qrdata]="getClientQRCode()" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>
