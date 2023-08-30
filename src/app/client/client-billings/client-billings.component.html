@@ -1,5 +1,23 @@
-<p>client-billings works!</p>
-
 <div>
-    {{showAllPayments() | json}}
+    <div>
+        <table>
+            <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Month</th>
+                  <th>Payment</th>
+                  <th>Completed</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let x of clientAllPayments">
+                  <td>{{x.year}}</td>
+                  <td>{{x.month}}</td>
+                  <td>{{x.payment}}</td>
+                  <td>{{x.completed}}</td>
+                </tr>
+                </tbody>
+          </table>
+    </div>
+
 </div>

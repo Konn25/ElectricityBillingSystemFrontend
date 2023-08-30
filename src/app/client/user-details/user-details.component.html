@@ -4,34 +4,34 @@
     <tbody>
       <tr>
         <td>Name: </td>
-        <td>{{ getClientName() }}</td>
+        <td>{{ client?.name }}</td>
       <tr>
         <td>Postal code</td>
-        <td>{{getClientPostalCode()}}</td>
+        <td>{{client?.postalCode}}</td>
       </tr>
       <tr>
         <td>City</td>
-        <td>{{getClientCity()}}</td>
+        <td>{{client?.city}}</td>
       </tr>
       <tr>
         <td>Street</td>
-        <td>{{getClientStreet()}}</td>
+        <td>{{client?.street}}</td>
       </tr>
       <tr>
         <td>House number</td>
-        <td>{{getClientHouseNumber()}}</td>
+        <td>{{client?.houseNumber}}</td>
       </tr>
       <tr>
         <td>Meter Id</td>
-        <td>{{getClientElectricityMeter()}}</td>
+        <td>{{client?.meterId}}</td>
       </tr>
       <tr>
         <td>Email address  </td>
-        <td>{{getClientEmail()}}</td>
+        <td>{{client?.email}}</td>
       </tr>
     </tbody>
 </table>
 
 <br>
 
-<qrcode [qrdata]="getClientQRCode()" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>
+<qrcode [qrdata]="clientQRCode" [width]="128" [errorCorrectionLevel]="'M'" [allowEmptyString]="true" ></qrcode>

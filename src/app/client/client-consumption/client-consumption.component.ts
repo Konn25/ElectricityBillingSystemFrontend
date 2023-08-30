@@ -1,61 +1,46 @@
-import { HttpHeaders } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Client } from 'src/app/clients/client';
+import { Consumption } from 'src/app/interfaces/consumption';
+import { AuthService } from 'src/app/services/auth.service';
 import { SharedService } from 'src/app/shared.services';
+
 
 @Component({
   selector: 'app-client-consumption',
   templateUrl: './client-consumption.component.html',
   styleUrls: ['./client-consumption.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
+  
 })
+
 export class ClientConsumptionComponent {
-  clientData!: any;
-  clientEmail = sessionStorage.getItem('email');
-  token = sessionStorage.getItem('token');
-  header : any;
-  options: any;
-  clientMeterId: any;
 
-  clientAllConsumption: any;
+  allConsumptions: Consumption[] = [];
 
-  constructor(private service:SharedService){
-
-    this.header = new HttpHeaders({
-      "Authorization": "Bearer " + this.token,
-   }),
-    this.options = { headers: this.header };
-
-    this.service.findClientByEmail(this.clientEmail,this.options).subscribe((s) => this.clientData = s ); 
-    
-  }
+  constructor(private service:SharedService, private authService: AuthService){}
 
   ngOnInit() {
+    this.getConsumption(this.client?.meterId);
+    this.showAllConsumption();
+
   }
 
-  getConsumptions(meterId: number) {
-    this.service.getAllConsumption(meterId,this.options).subscribe((s) => this.clientAllConsumption = s);
+  get client() {
+    return this.authService.client;
   }
 
-  getClientMeterId(){
-    this.clientMeterId=this.clientData.meterId;
-    return this.clientMeterId;
+  getConsumption(meterId: any) {
+    this.service.getAllConsumption(meterId, this.authService.getToken()).subscribe((s: Consumption[]) => this.allConsumptions = s);
   }
 
-  getData(){
-    this.getConsumptions(this.getClientMeterId())
-  }
-
-  getAllConsumption(){
+  showAllConsumption(){
     var i:number;
-    var consumptions: Client[]; 
-    consumptions = [];
-    this.getData();
-    for(i = 0;i<this.clientAllConsumption.length;i++) {
-      consumptions.push(this.clientAllConsumption[i]);
-    }
+    var consumptions: Consumption[] = []; 
 
+    for(i = 0;i<this.allConsumptions.length;i++) {
+      consumptions.push(this.allConsumptions[i]);
+    }
     return consumptions;
   }
+
 
 }

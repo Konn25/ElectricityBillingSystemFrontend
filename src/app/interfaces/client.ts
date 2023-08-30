@@ -1,5 +1,4 @@
 export interface Client{
-    [x: string]: any;
     id:number;
     name: string;
     meterId: number;

@@ -1,61 +1,40 @@
-import { HttpHeaders } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Payment } from 'src/app/clients/payment';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Payment } from 'src/app/interfaces/payment';
+import { AuthService } from 'src/app/services/auth.service';
 import { SharedService } from 'src/app/shared.services';
 
 @Component({
   selector: 'app-client-billings',
   templateUrl: './client-billings.component.html',
   styleUrls: ['./client-billings.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientBillingsComponent {
-  clientData!: any;
-  clientEmail = sessionStorage.getItem('email');
-  token = sessionStorage.getItem('token');
-  header : any;
-  options: any;
-  clientAllPayments:any;
 
-  clientId:any;
+  clientAllPayments: Payment[] = [];
 
-  constructor(private service:SharedService){
-
-    this.header = new HttpHeaders({
-      "Authorization": "Bearer " + this.token,
-   }),
-    this.options = { headers: this.header };
-
-    this.service.findClientByEmail(this.clientEmail,this.options).subscribe((s) => this.clientData = s ); 
-    
-  }
+  constructor(private service:SharedService, private authService: AuthService){}
 
   ngOnInit() {
+    this.getPayments(this.client?.id);
+    this.showAllPayments();
   }
 
-  async getPayments(clientId: number) {
-    this.service.getClientAllPayment(clientId,this.options).subscribe((s) => this.clientAllPayments = s);
+  get client() {
+    return this.authService.client;
   }
 
-  getClientId(){
-    this.clientId=this.clientData.id;
-    return this.clientId;
-  }
-
-  getAllPayments(){
-    this.getPayments(this.getClientId());
+  getPayments(clientId: any) {
+   this.service.getClientAllPayment(clientId, this.authService.getToken()).subscribe((s: Payment[]) => this.clientAllPayments = s);
   }
 
   showAllPayments(){
     var i:number;
     var payments: Payment[]; 
-    payments = [];
-    this.getAllPayments();
-    for(i = 0;i<this.clientAllPayments.length;i++) {
-      payments.push(this.clientAllPayments[i]);
-    }
 
+    payments = [];
+    for(i = 0;i<this.clientAllPayments!.length;i++) {
+      payments.push(this.clientAllPayments![i]);
+    }
     return payments;
   }
-
 }
