@@ -37,4 +37,15 @@ export class ClientBillingsComponent {
     }
     return payments;
   }
+
+  getMonthNames(monthNumber: number) {
+    const date = new Date();
+    date.setMonth(monthNumber - 1);
+    
+    const formatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
+  
+    const month = formatter.format(date);
+  
+    return `${month}`;
+  }
 }

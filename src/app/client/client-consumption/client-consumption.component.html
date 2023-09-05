@@ -1,7 +1,7 @@
 <h1>Your consumptions</h1>
 
 <div>
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
               <th>Year</th>
@@ -13,9 +13,9 @@
             <tbody>
             <tr *ngFor="let x of allConsumptions">
               <td>{{x.year}}</td>
-              <td>{{x.month}}</td>
+              <td>{{getMonthNames(x.month)}}</td>
               <td>{{x.day}}</td>
-              <td>{{x.consumption}}</td>
+              <td>{{x.consumption}} kWh </td>
             </tr>
             </tbody>
       </table>

@@ -1,6 +1,7 @@
+<h1>Billings </h1>
 <div>
     <div>
-        <table>
+        <table class="table table-striped">
             <thead>
                 <tr>
                   <th>Year</th>
@@ -12,9 +13,10 @@
                 <tbody>
                 <tr *ngFor="let x of clientAllPayments">
                   <td>{{x.year}}</td>
-                  <td>{{x.month}}</td>
-                  <td>{{x.payment}}</td>
-                  <td>{{x.completed}}</td>
+                  <td>{{getMonthNames(x.month)}}</td>
+                  <td>{{x.payment}} Ft</td>
+                  <td>{{x.completed === 0 ? "Not paid" : "Paid"}}</td>
+      
                 </tr>
                 </tbody>
           </table>
